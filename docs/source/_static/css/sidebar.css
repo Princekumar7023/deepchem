@@ -1,0 +1,39 @@
+/* custom.css - ensure the sidebar shows/hides cleanly on narrow viewports */
+/* We use a class rtd-sidebar-show toggled by the JS fallback above. */
+
+nav.wy-nav-side,
+nav.wy-side-nav,
+nav.sphinxsidebar {
+  transition: transform 0.18s ease, visibility 0.18s linear;
+}
+
+/* Default: slide off-screen on small screens */
+@media (max-width: 900px) {
+  nav.wy-nav-side,
+  nav.wy-side-nav,
+  nav.sphinxsidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1200;
+    background: var(--wy-nav-background, #fff);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    /* keep it hidden until toggled */
+    visibility: hidden;
+  }
+
+  /* The class toggled by JS: bring it into view */
+  nav.wy-nav-side.rtd-sidebar-show,
+  nav.wy-side-nav.rtd-sidebar-show,
+  nav.sphinxsidebar.rtd-sidebar-show {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  /* Make sure content behind is not scrollable when sidebar open */
+  body.rtd-sidebar-open {
+    overflow: hidden;
+  }
+}
